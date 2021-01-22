@@ -18,12 +18,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
       # Runs a set of commands using the runners shell
-      - name: Install gpg
+      - id: install-secret-key
+        name: Install gpg secret key
         run: |
-           cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import --always-trust --yes
-      # Runs a set of commands using the runners shell
-      - name: list gpg
-        run: |
-           gpg --list-secret-keys --keyid-format LONG
+          cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import
+          gpg --list-secret-keys --keyid-format LONG

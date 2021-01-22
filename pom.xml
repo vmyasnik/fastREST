@@ -10,6 +10,18 @@
     <name>fastrest</name>
     <description>FastREST BDD Style library</description>
     <url>https://github.com/vmyasnik/fastrest</url>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Viktor Myasnikov</name>
+            <email>13vitia@gmail.com</email>
+        </developer>
+    </developers>
     <scm>
         <connection>scm:git:git://github.com/vmyasnik/fastrest.git</connection>
         <developerConnection>scm:git:git@github.com:vmyasnik/fastrest.git</developerConnection>
@@ -120,6 +132,19 @@
                         <phase>verify</phase>
                         <goals>
                             <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>

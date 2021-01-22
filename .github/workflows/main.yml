@@ -14,8 +14,12 @@ jobs:
           server-id: ossrh
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
+      - name: Configure GPG Key
+        run: |
+          printf "${{secrets.GPG_SECRET_KEY_64}}" | base64 --decode > private.key
+          gpg --import --batch private.key
       - name: Publish package
-        run: mvn --batch-mode deploy -Dgpg.skip -DskipTests=true
+        run: mvn --batch-mode deploy -DskipTests=true
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}

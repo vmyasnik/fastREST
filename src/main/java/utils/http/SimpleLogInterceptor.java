@@ -1,4 +1,4 @@
-package utils;
+package utils.http;
 
 import okhttp3.*;
 import okio.Buffer;
@@ -14,7 +14,7 @@ public class SimpleLogInterceptor implements Interceptor {
                 , chain.request().method()
                 , request.url(), request.headers());
         System.out.println(logMessage);
-        String requestBody = null;
+        String requestBody;
         Buffer requestBuffer = new Buffer();
         if (request.body() != null) {
             request.body().writeTo(requestBuffer);
@@ -32,12 +32,12 @@ public class SimpleLogInterceptor implements Interceptor {
         logMessage = String.format("<--- Thread: %s\nStatus code: %s %s\n%s Time: %.1fms%n%s",
                 Thread.currentThread().getId(), response.code(), response.message(),
                 response.request().url(), (t2 - t1) / 1e6d, response.headers());
-            System.out.println(logMessage);
+        System.out.println(logMessage);
 
         String content = response.body().string();
         logMessage = String.format("<--- Thread: %s\nResponse body:\n%s", Thread.currentThread().getId(), content);
-            System.out.println(logMessage);
-        ResponseBody wrappedBody = ResponseBody.create(contentType, content);
+        System.out.println(logMessage);
+        ResponseBody wrappedBody = ResponseBody.create(content, contentType);
         return response.newBuilder().body(wrappedBody).build();
     }
 }

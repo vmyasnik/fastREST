@@ -1,32 +1,23 @@
-package utils;
+package utils.http;
 
 import domain.HttpMethod;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import utils.persist.Context;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 public class UniversalSender {
-    private static final OkHttpClient.Builder builder = new OkHttpClient.Builder();
-    private static final OkHttpClient client =  builder
-            .readTimeout(10, TimeUnit.SECONDS)
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .callTimeout(10, TimeUnit.SECONDS)
-            .addInterceptor(new SimpleLogInterceptor())
-            .build();;
-
-    public static void send() {
+    public static void send(OkHttpClient okHttpClient) {
         Response response;
         String responseBody;
         Request.Builder requestB = Context.getValue("builder");
         try {
             long a = System.currentTimeMillis();
             final Request build = requestB.build();
-
-            response = client.newCall(build).execute();
+            response = okHttpClient.newCall(build).execute();
             long b = System.currentTimeMillis();
             responseBody = response.body().string();
             Context.put("responseBody", responseBody);
@@ -39,8 +30,8 @@ public class UniversalSender {
         }
     }
 
-    public static void makeRequest(String path, HttpMethod method) {
-        HttpUrl httpUrl = makeUrl(null, path, UrlResolver.resolveUrl(path));
+    public static void makeRequest(String path, HttpMethod method, UrlResolver resolver) {
+        HttpUrl httpUrl = makeUrl(null, path, resolver.getResolvedUrl(path));
         Request.Builder requestB = new Request.Builder();
         requestB.url(httpUrl);
         switch (method) {
@@ -56,7 +47,7 @@ public class UniversalSender {
         Context.put("builder", requestB);
     }
 
-    static HttpUrl makeUrl(String subdomain, String path, String ref) {
+    public static HttpUrl makeUrl(String subdomain, String path, String ref) {
         return HttpUrl
                 .parse(path)
                 .newBuilder()

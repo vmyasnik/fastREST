@@ -1,4 +1,4 @@
-package utils.persist;
+package com.github.vmyasnik.fastREST.utils.persist;
 
 import java.util.HashMap;
 import java.util.Map;

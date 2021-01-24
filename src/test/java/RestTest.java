@@ -8,6 +8,6 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         plugin = {"pretty"},
         features = "src/test/resources",
-        glue = "stepdefs")
+        glue = "com/github/vmyasnik/fastREST/stepdefs")
 public class RestTest {
 }

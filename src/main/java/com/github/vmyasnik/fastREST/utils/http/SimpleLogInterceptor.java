@@ -1,4 +1,4 @@
-package utils.http;
+package com.github.vmyasnik.fastREST.utils.http;
 
 import okhttp3.*;
 import okio.Buffer;

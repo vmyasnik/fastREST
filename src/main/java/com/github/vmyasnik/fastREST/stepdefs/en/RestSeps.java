@@ -1,9 +1,7 @@
-package stepdefs.en;
+package com.github.vmyasnik.fastREST.stepdefs.en;
 
 import io.cucumber.java.en.And;
-import utils.FastRest;
-import utils.http.OkHttpFactory;
-import utils.http.UrlResolver;
+import com.github.vmyasnik.fastREST.utils.FastRest;
 
 public class RestSeps {
     //это будут подключать в фрейме, тут соответственно надо дать возможность настройки

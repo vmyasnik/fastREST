@@ -1,4 +1,4 @@
-package domain;
+package com.github.vmyasnik.fastREST.domain;
 public enum HttpMethod {
     GET,
     HEAD,

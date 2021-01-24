@@ -1,10 +1,10 @@
-package utils;
+package com.github.vmyasnik.fastREST.utils;
 
-import domain.HttpMethod;
+import com.github.vmyasnik.fastREST.domain.HttpMethod;
 import okhttp3.OkHttpClient;
-import utils.http.OkHttpFactory;
-import utils.http.UniversalSender;
-import utils.http.UrlResolver;
+import com.github.vmyasnik.fastREST.utils.http.OkHttpFactory;
+import com.github.vmyasnik.fastREST.utils.http.UniversalSender;
+import com.github.vmyasnik.fastREST.utils.http.UrlResolver;
 
 public class FastRest {
     private final OkHttpClient okHttpClient;

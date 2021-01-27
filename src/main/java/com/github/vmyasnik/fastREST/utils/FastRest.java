@@ -11,4 +11,7 @@ public class FastRest {
     public static void send() {
         UniversalSender.send(FastRestSettings.getOkHttpClient());
     }
+    public static void define(String var, String value) {
+        VariableUtil.define(var,value);
+    }
 }

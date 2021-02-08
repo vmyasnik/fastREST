@@ -1,4 +1,4 @@
-package com.github.vmyasnik.fastREST.stepdefs;
+package com.github.vmyasnik.fastREST.stepdefs.en;
 
 import io.cucumber.core.api.TypeRegistry;
 import io.cucumber.core.api.TypeRegistryConfigurer;

@@ -2,6 +2,7 @@ package com.github.vmyasnik.fastREST.stepdefs.en;
 
 import com.github.vmyasnik.fastREST.domain.DefinedVar;
 import com.github.vmyasnik.fastREST.utils.FastRest;
+import com.github.vmyasnik.fastREST.utils.variables.FastException;
 import com.github.vmyasnik.fastREST.utils.variables.VariableUtil;
 import io.cucumber.java.en.And;
 
@@ -42,5 +43,10 @@ public class RestSeps {
     @And("print {string}")
     public void print(String path) {
         System.out.println(VariableUtil.get(path));
+    }
+
+    @And("echo {string}")
+    public void echo(String path) throws FastException {
+        System.out.println(VariableUtil.replace(path));
     }
 }

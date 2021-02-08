@@ -7,3 +7,4 @@ Feature: test
     Given make GET request "https://community-open-weather-map.p.rapidapi.com/weather"
     And send
     * print "a"
+    * echo "a is ${a}"

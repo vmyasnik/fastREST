@@ -7,7 +7,7 @@ import com.github.vmyasnik.fastREST.utils.variables.VariableUtil;
 
 public class FastRest {
     public static void makeGetRequest(String path) {
-        UniversalSender.makeRequest(Expression.execute(path).toString(), HttpMethod.GET, FastRestSettings.getUrlResolver());
+        UniversalSender.makeRequest(path, HttpMethod.GET, FastRestSettings.getUrlResolver());
     }
 
     public static void send() {

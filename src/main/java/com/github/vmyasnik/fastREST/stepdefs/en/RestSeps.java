@@ -2,7 +2,7 @@ package com.github.vmyasnik.fastREST.stepdefs.en;
 
 import com.github.vmyasnik.fastREST.domain.DefinedVar;
 import com.github.vmyasnik.fastREST.utils.FastRest;
-import com.github.vmyasnik.fastREST.utils.VariableUtil;
+import com.github.vmyasnik.fastREST.utils.variables.VariableUtil;
 import io.cucumber.java.en.And;
 
 import java.util.List;

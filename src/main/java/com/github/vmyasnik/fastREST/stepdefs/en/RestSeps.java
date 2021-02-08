@@ -24,7 +24,7 @@ public class RestSeps {
     }
 
     @And("make GET request {string}")
-    public void makeGetRequest(String path) {
+    public void makeGetRequest(String path) throws FastException {
         FastRest.makeGetRequest(path);
     }
 

@@ -4,8 +4,14 @@ Feature: test
     * define
       | variable | value   |
       | a        | 1       |
-      | method   | weather |
+#      | method   | weather |
+    * script
+    """
+    method = 'weather'
+    """
     Given make GET request "https://community-open-weather-map.p.rapidapi.com/${method}"
     And send
-    * print "a"
-    * echo "a is ${a}"
+    Then status code "401"
+    Then print "a"
+    And echo "a is ${a}"
+

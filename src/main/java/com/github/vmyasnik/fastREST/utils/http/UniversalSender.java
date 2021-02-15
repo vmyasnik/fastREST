@@ -1,11 +1,11 @@
 package com.github.vmyasnik.fastREST.utils.http;
 
 import com.github.vmyasnik.fastREST.domain.HttpMethod;
+import com.github.vmyasnik.fastREST.utils.persist.Context;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import com.github.vmyasnik.fastREST.utils.persist.Context;
 
 import java.io.IOException;
 
@@ -52,5 +52,11 @@ public class UniversalSender {
                 .parse(path)
                 .newBuilder()
                 .build();
+    }
+
+    public static void assertCode(String code) {
+        if (!Context.getValue("responseHttpCode").toString().equals(code)) {
+            throw new AssertionError(String.format("http code %s expected but %s in response",code,Context.getValue("responseHttpCode")));
+        }
     }
 }

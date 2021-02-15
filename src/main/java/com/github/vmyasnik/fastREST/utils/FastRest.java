@@ -17,4 +17,8 @@ public class FastRest {
     public static void define(String var, String value) {
         VariableUtil.define(var, value);
     }
+
+    public static void assertCode(String code) {
+        UniversalSender.assertCode(code);
+    }
 }

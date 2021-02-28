@@ -9,6 +9,7 @@ import com.github.vmyasnik.fastREST.utils.variables.VariableUtil;
 import io.cucumber.datatable.DataTable;
 import okhttp3.*;
 import org.apache.http.client.utils.URIBuilder;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -65,25 +66,13 @@ public class UniversalSender {
         List<List<String>> dataTableList = dataTable.asLists();
         RequestBody body;
         MultipartBody.Builder application = new MultipartBody.Builder();
+        body = getRequestBody(dataTableList, application);
 
-        switch (dataTableList.get(0).get(0).toLowerCase()) {
-            case "body": {
-                body = getRequestBody(dataTableList);
-                break;
-            }
-            case "from-data":
-            case "multipart": {
-                body = getMultipartBody(dataTableList, application);
-                break;
-            }
-            case "x-www-urlencoded": {
-                body = getXWWWUrlencodedBody(dataTableList);
-                break;
-            }
-            default: {
-                throw new FastException("Parameter body is null");
-            }
-        }
+        getHttpMethod(method, requestB, body);
+        Context.put("builder", requestB);
+    }
+
+    private static void getHttpMethod(HttpMethod method, Request.Builder requestB, RequestBody body) {
         switch (method) {
             case POST: {
                 requestB.post(body);
@@ -105,7 +94,30 @@ public class UniversalSender {
                 throw new AssertionError();
             }
         }
-        Context.put("builder", requestB);
+    }
+
+    @NotNull
+    private static RequestBody getRequestBody(List<List<String>> dataTableList, MultipartBody.Builder application) throws FastException {
+        RequestBody body;
+        switch (dataTableList.get(0).get(0).toLowerCase()) {
+            case "body": {
+                body = getRequestBody(dataTableList);
+                break;
+            }
+            case "from-data":
+            case "multipart": {
+                body = getMultipartBody(dataTableList, application);
+                break;
+            }
+            case "x-www-urlencoded": {
+                body = getXWWWUrlencodedBody(dataTableList);
+                break;
+            }
+            default: {
+                throw new FastException("Parameter body is null");
+            }
+        }
+        return body;
     }
 
     private static RequestBody getXWWWUrlencodedBody(List<List<String>> dataTableList) throws FastException {

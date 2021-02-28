@@ -6,6 +6,8 @@ import com.github.vmyasnik.fastREST.utils.persist.Context;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.github.vmyasnik.fastREST.utils.variables.Expression.VAR_REGEXP;
+
 public class VariableUtil {
 
     public static void define(String var, String value) {
@@ -17,7 +19,7 @@ public class VariableUtil {
     }
 
     public static String replace(String str) throws FastException {
-        Pattern pattern = Pattern.compile("\\$\\{(.*?)}");
+        Pattern pattern = Pattern.compile(VAR_REGEXP);
         Matcher matcher = pattern.matcher(str);
         int lastStart = 0;
         StringBuilder output = new StringBuilder();

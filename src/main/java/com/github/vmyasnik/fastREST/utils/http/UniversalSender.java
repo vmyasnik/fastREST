@@ -7,6 +7,11 @@ import com.github.vmyasnik.fastREST.utils.variables.FastException;
 import com.github.vmyasnik.fastREST.utils.variables.VariableUtil;
 import io.cucumber.datatable.DataTable;
 import okhttp3.*;
+import com.github.vmyasnik.fastREST.utils.persist.Context;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import java.io.IOException;
 import java.util.List;
@@ -113,6 +118,12 @@ public class UniversalSender {
         Request.Builder requestB = Context.getValue("builder");
         for (Map.Entry<String, String> entry : table.entrySet()) {
             requestB.header(entry.getKey(), VariableUtil.replace(entry.getValue()));
+        }
+    }
+
+    public static void assertCode(String code) {
+        if (!Context.getValue("responseHttpCode").toString().equals(code)) {
+            throw new AssertionError(String.format("http code %s expected but %s in response",code,Context.getValue("responseHttpCode")));
         }
     }
 }

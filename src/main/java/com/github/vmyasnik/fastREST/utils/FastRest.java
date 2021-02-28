@@ -31,4 +31,8 @@ public class FastRest {
             UniversalSender.addHeaders(headersMap);
         }
     }
+
+    public static void assertCode(String code) {
+        UniversalSender.assertCode(code);
+    }
 }

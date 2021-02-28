@@ -2,7 +2,7 @@
   "id": "${id}",
   "category": {
     "id": 0,
-    "name": "string"
+    "name": "Cat"
   },
   "name": "doggie",
   "photoUrls": [

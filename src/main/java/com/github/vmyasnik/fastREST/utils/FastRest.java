@@ -17,6 +17,18 @@ public class FastRest {
         UniversalSender.makeRequest(VariableUtil.replace(path), HttpMethod.POST, dataTable, FastRestSettings.getUrlResolver());
     }
 
+    public static void makePutRequest(String path, DataTable dataTable) throws FastException {
+        UniversalSender.makeRequest(VariableUtil.replace(path), HttpMethod.PUT, dataTable, FastRestSettings.getUrlResolver());
+    }
+
+    public static void makeDeleteRequest(String path) throws FastException {
+        UniversalSender.makeRequest(VariableUtil.replace(path), HttpMethod.DELETE, FastRestSettings.getUrlResolver());
+    }
+
+    public static void makePatchRequest(String path, DataTable dataTable) throws FastException {
+        UniversalSender.makeRequest(VariableUtil.replace(path), HttpMethod.PATCH, dataTable, FastRestSettings.getUrlResolver());
+    }
+
     public static void send() {
         UniversalSender.send(FastRestSettings.getOkHttpClient());
     }

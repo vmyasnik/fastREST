@@ -12,15 +12,7 @@ import java.nio.file.Paths;
 
 public class FileHelper {
 
-    //    http://owner.aeonbits.org/docs/configuring/
-    public static String getFile(String fileName) throws FastException {
-        File resourcesDirectory = new File("src/main/resources/config/");
-        ConfigFactory.setProperty("ENV_PATH", resourcesDirectory.getAbsolutePath());
-        Configuration configuration = ConfigFactory.create(Configuration.class);
-        return getContentByContentOrFile(fileName, getConfigFolder(configuration.getJsonFolder()));
-    }
-
-    private static String getConfigFolder(String config) {
+    public static String getConfigFolder(String config) {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         URL resource = loader.getResource(config);
         if (resource != null) {
@@ -30,7 +22,7 @@ public class FileHelper {
         }
     }
 
-    public static String getContentByContentOrFile(String contentName, String resourceStream) throws FastException {
+    public static String getFile(String contentName, String resourceStream) throws FastException {
         if (contentName.isEmpty()) {
             return contentName;
         }

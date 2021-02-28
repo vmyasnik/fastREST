@@ -37,6 +37,21 @@ public class RestSeps {
         FastRest.makePostRequest(path, dataTable);
     }
 
+    @And("make PUT request {string}")
+    public void makePutRequest(String path, DataTable dataTable) throws FastException {
+        FastRest.makePutRequest(path, dataTable);
+    }
+
+    @And("make PATCH request {string}")
+    public void makePatchRequest(String path, DataTable dataTable) throws FastException {
+        FastRest.makePatchRequest(path, dataTable);
+    }
+
+    @And("make DELETE request {string}")
+    public void makeDeleteRequest(String path) throws FastException {
+        FastRest.makeDeleteRequest(path);
+    }
+
     @And("send")
     public void send() {
         FastRest.send();

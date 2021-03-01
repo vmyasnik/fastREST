@@ -3,6 +3,7 @@ package com.github.vmyasnik.fastREST.stepdefs.en;
 import com.github.vmyasnik.fastREST.domain.DefinedVar;
 import com.github.vmyasnik.fastREST.utils.FastRest;
 import com.github.vmyasnik.fastREST.utils.variables.Expression;
+import com.github.vmyasnik.fastREST.utils.variables.FastCommandLineException;
 import com.github.vmyasnik.fastREST.utils.variables.FastException;
 import com.github.vmyasnik.fastREST.utils.variables.VariableUtil;
 import io.cucumber.datatable.DataTable;
@@ -75,7 +76,7 @@ public class RestSeps {
     }
 
     @And("echo {string}")
-    public void echo(String path) throws FastException {
+    public void echo(String path) {
         System.out.println(Expression.smartExecute(path));
     }
 
@@ -88,4 +89,10 @@ public class RestSeps {
     public void statusCode(String code) {
         FastRest.assertCode(code);
     }
+
+    @Then("execute command line:")
+    public void executeCommandLine(String command) throws FastException, FastCommandLineException {
+        Expression.executeCommandLine(command);
+    }
+
 }

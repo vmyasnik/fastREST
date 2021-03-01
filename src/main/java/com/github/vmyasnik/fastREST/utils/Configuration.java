@@ -12,6 +12,7 @@ public interface Configuration extends Config {
     @DefaultValue("json")
     String getJsonFolder();
 
-    @Key("test")
-    String getTest();
+    @Key("os")
+    String getOs();
+
 }

@@ -8,6 +8,9 @@ import org.apache.commons.jexl3.JexlEngine;
 import org.apache.commons.jexl3.JexlScript;
 import org.apache.log4j.Logger;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -56,5 +59,48 @@ public class Expression {
         Object execute = e.execute(jc);
         LOGGER.debug("Exec result is:" + execute);
         return execute;
+    }
+
+    public static void executeCommandLine(String command) throws FastException, FastCommandLineException {
+        try {
+            Process process;
+            String com = VariableUtil.replace(command);
+            if (isWindows()) {
+                process = new ProcessBuilder("cmd", "/c", com).start();
+            } else {
+                process = new ProcessBuilder("sh", "-c", com).start();
+            }
+            process.waitFor();
+
+            BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader stdErr = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            String responseBody;
+            String errorBody;
+
+            StringBuilder errorBuilder = new StringBuilder();
+            StringBuilder responseBuilder = new StringBuilder();
+            while ((errorBody = stdErr.readLine()) != null) {
+                errorBuilder.append(errorBody).append("\n");
+            }
+            while ((responseBody = stdInput.readLine()) != null) {
+                responseBuilder.append(responseBody).append("\n");
+            }
+            Context.put("errorBody", errorBuilder);
+            Context.put("responseBody", responseBuilder);
+
+            if (process.exitValue() != 0) {
+                throw new FastCommandLineException(errorBuilder.toString());
+            }
+            System.out.println("Request: ".concat(com));
+            System.out.println("Response: ".concat(responseBuilder.toString()));
+            System.out.println("Error: ".concat(errorBuilder.toString()));
+
+        } catch (InterruptedException | IOException interruptedException) {
+            interruptedException.printStackTrace();
+        }
+    }
+
+    public static boolean isWindows() {
+        return System.getProperty("os.name").toLowerCase().contains("win");
     }
 }

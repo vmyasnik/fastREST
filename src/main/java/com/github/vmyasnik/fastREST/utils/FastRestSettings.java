@@ -6,11 +6,6 @@ import com.github.vmyasnik.fastREST.utils.variables.FastException;
 import okhttp3.OkHttpClient;
 import org.aeonbits.owner.ConfigFactory;
 
-import java.io.File;
-
-import static com.github.vmyasnik.fastREST.domain.Const.CONFIG_PATH;
-import static com.github.vmyasnik.fastREST.domain.Const.ENV_PATH;
-
 /**
  *
  */
@@ -38,8 +33,6 @@ public class FastRestSettings {
     }
 
     public static String getFile(String fileName) throws FastException {
-        File resourcesDirectory = new File(CONFIG_PATH);
-        ConfigFactory.setProperty(ENV_PATH, resourcesDirectory.getAbsolutePath());
         return FileHelper.getFile(fileName, FileHelper.getConfigFolder(configuration.getJsonFolder()));
     }
 

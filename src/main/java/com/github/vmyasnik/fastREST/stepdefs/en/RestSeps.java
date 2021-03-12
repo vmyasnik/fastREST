@@ -5,7 +5,6 @@ import com.github.vmyasnik.fastREST.utils.FastRest;
 import com.github.vmyasnik.fastREST.utils.variables.Expression;
 import com.github.vmyasnik.fastREST.utils.variables.FastCommandLineException;
 import com.github.vmyasnik.fastREST.utils.variables.FastException;
-import com.github.vmyasnik.fastREST.utils.variables.VariableUtil;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -61,7 +60,7 @@ public class RestSeps {
     @And("define")
     public void define(List<DefinedVar> vars) {
         for (DefinedVar var : vars) {
-            VariableUtil.define(var.getVariable(), var.getValue().toString());
+            FastRest.define(var.getVariable(), var.getValue().toString());
         }
     }
 

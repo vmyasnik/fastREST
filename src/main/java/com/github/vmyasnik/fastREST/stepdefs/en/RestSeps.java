@@ -3,8 +3,9 @@ package com.github.vmyasnik.fastREST.stepdefs.en;
 import com.github.vmyasnik.fastREST.domain.DefinedVar;
 import com.github.vmyasnik.fastREST.utils.FastRest;
 import com.github.vmyasnik.fastREST.utils.variables.Expression;
+import com.github.vmyasnik.fastREST.utils.variables.FastCommandLineException;
 import com.github.vmyasnik.fastREST.utils.variables.FastException;
-import com.github.vmyasnik.fastREST.utils.variables.VariableUtil;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -31,6 +32,26 @@ public class RestSeps {
         FastRest.makeGetRequest(path);
     }
 
+    @And("make POST request {string}")
+    public void makePostRequest(String path, DataTable dataTable) throws FastException {
+        FastRest.makePostRequest(path, dataTable);
+    }
+
+    @And("make PUT request {string}")
+    public void makePutRequest(String path, DataTable dataTable) throws FastException {
+        FastRest.makePutRequest(path, dataTable);
+    }
+
+    @And("make PATCH request {string}")
+    public void makePatchRequest(String path, DataTable dataTable) throws FastException {
+        FastRest.makePatchRequest(path, dataTable);
+    }
+
+    @And("make DELETE request {string}")
+    public void makeDeleteRequest(String path) throws FastException {
+        FastRest.makeDeleteRequest(path);
+    }
+
     @And("send")
     public void send() {
         FastRest.send();
@@ -39,8 +60,13 @@ public class RestSeps {
     @And("define")
     public void define(List<DefinedVar> vars) {
         for (DefinedVar var : vars) {
-            VariableUtil.define(var.getVariable(), var.getValue().toString());
+            FastRest.define(var.getVariable(), var.getValue().toString());
         }
+    }
+
+    @And("add headers")
+    public void addHeaders(DataTable table) throws FastException {
+        FastRest.addHeaders(table);
     }
 
     @And("print {string}")
@@ -49,7 +75,7 @@ public class RestSeps {
     }
 
     @And("echo {string}")
-    public void echo(String path) throws FastException {
+    public void echo(String path) {
         System.out.println(Expression.smartExecute(path));
     }
 
@@ -62,4 +88,10 @@ public class RestSeps {
     public void statusCode(String code) {
         FastRest.assertCode(code);
     }
+
+    @Then("execute command line:")
+    public void executeCommandLine(String command) throws FastException, FastCommandLineException {
+        Expression.executeCommandLine(command);
+    }
+
 }

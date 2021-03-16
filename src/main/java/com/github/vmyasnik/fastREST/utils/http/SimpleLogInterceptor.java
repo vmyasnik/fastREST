@@ -1,5 +1,9 @@
 package com.github.vmyasnik.fastREST.utils.http;
 
+import gherkin.deps.com.google.gson.Gson;
+import gherkin.deps.com.google.gson.GsonBuilder;
+import gherkin.deps.com.google.gson.JsonObject;
+import gherkin.deps.com.google.gson.JsonParser;
 import okhttp3.*;
 import okio.Buffer;
 
@@ -35,9 +39,18 @@ public class SimpleLogInterceptor implements Interceptor {
         System.out.println(logMessage);
 
         String content = response.body().string();
-        logMessage = String.format("<--- Thread: %s\nResponse body:\n%s", Thread.currentThread().getId(), content);
+        logMessage = String.format("<--- Thread: %s\nResponse body:\n%s",
+                Thread.currentThread().getId(), content);
         System.out.println(logMessage);
         ResponseBody wrappedBody = ResponseBody.create(content, contentType);
         return response.newBuilder().body(wrappedBody).build();
     }
+
+//    private String toPrettyFormat(String jsonString) {
+//        JsonParser parser = new JsonParser();
+//        JsonObject json = parser.parse(jsonString).getAsJsonObject();
+//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//        return gson.toJson(json);
+//    }
+
 }

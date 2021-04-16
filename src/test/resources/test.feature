@@ -29,6 +29,8 @@ Feature: test
       | Content-Type | ${Content-Type} |
     And send
     Then status code "200"
+    And check
+      | $.id | == | ${id} |
 
     When make GET request "https://petstore.swagger.io/v2/pet/1"
     And add headers

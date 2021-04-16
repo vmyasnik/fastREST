@@ -1,10 +1,14 @@
 package com.github.vmyasnik.fastREST.stepdefs.en;
 
 import com.github.vmyasnik.fastREST.domain.DefinedVar;
+import com.github.vmyasnik.fastREST.utils.CompareHelper;
 import com.github.vmyasnik.fastREST.utils.FastRest;
+import com.github.vmyasnik.fastREST.utils.persist.Context;
 import com.github.vmyasnik.fastREST.utils.variables.Expression;
 import com.github.vmyasnik.fastREST.utils.variables.FastCommandLineException;
 import com.github.vmyasnik.fastREST.utils.variables.FastException;
+import com.github.vmyasnik.fastREST.utils.variables.VariableUtil;
+import com.jayway.jsonpath.JsonPath;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -94,4 +98,30 @@ public class RestSeps {
         Expression.executeCommandLine(command);
     }
 
+    @And("check")
+    public void check(DataTable dataTable) throws FastException {
+        List<List<String>> lists = dataTable.asLists();
+        final int[] i = {0};
+        if (lists.get(0).size() != 3) {
+            throw new AssertionError("check error, скорее всего забыли ==");
+        }
+        lists.forEach(lines -> {
+            Object temp = Context.getValue("_" + lines.get(0));
+            if (temp == null && !Context.asMap().containsKey("_" + lines.get(0))) {
+                String response = Context.getValue("responseBody");
+                try {
+                    temp = JsonPath.read(response, VariableUtil.replace(lines.get(0)));
+                } catch (FastException e) {
+                    e.printStackTrace();
+                }
+            }
+            String temp2 = null;
+            try {
+                temp2 = VariableUtil.replace(lines.get(2));
+            } catch (FastException e) {
+                e.printStackTrace();
+            }
+            CompareHelper.compareObjects(lines.get(0), temp2, temp, lines.get(1));
+        });
+    }
 }

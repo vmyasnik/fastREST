@@ -6,7 +6,7 @@
     <groupId>com.github.vmyasnik</groupId>
     <artifactId>fastREST</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.5</version>
+    <version>1.0.1</version>
     <name>fastrest</name>
     <description>FastREST BDD Style library</description>
     <url>https://github.com/vmyasnik/fastrest</url>
